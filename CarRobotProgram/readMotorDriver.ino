@@ -1,18 +1,15 @@
 void readMotorDriver() {
-  analogWrite(-255, 255);   //ENA   pin
-  analogWrite(-255, 255);  //ENB pin
+  float motor1Multiplier = 1.0;
+  float motor2Multiplier = 0.95;
 
-  analogWrite(motor1pin1, 200);
-  analogWrite(motor1pin2, 0);
+  int adjustedSpeed1 = speed1 * motor1Multiplier;
+  int adjustedSpeed2 = speed2 * motor2Multiplier;
 
-  analogWrite(motor2pin1, 200);
-  analogWrite(motor2pin2, 0);
-  delay(1000);
+  adjustedSpeed1 = max(-255, min(255, adjustedSpeed1));
+  adjustedSpeed2 = max(-255, min(255, adjustedSpeed2));
 
-  analogWrite(motor1pin1, 0);
-  analogWrite(motor1pin2, 200);
-
-  analogWrite(motor2pin1, 0);
-  analogWrite(motor2pin2, 200);
-  delay(1000);
+  analogWrite(MOTOR_PIN1, adjustedSpeed1 > 0 ? adjustedSpeed1 : 0);
+  analogWrite(MOTOR_PIN2, adjustedSpeed1 < 0 ? -adjustedSpeed1 : 0);
+  analogWrite(MOTOR_PIN3, adjustedSpeed1 > 0 ? adjustedSpeed2 : 0);
+  analogWrite(MOTOR_PIN4, adjustedSpeed1 < 0 ? -adjustedSpeed2 : 0);
 }
