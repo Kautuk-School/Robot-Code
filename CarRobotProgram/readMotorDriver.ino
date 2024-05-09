@@ -1,4 +1,4 @@
-void readMotorDriver() {
+void readMotorDriver(int speed1, int speed2) {
   float motor1Multiplier = 1.0;
   float motor2Multiplier = 0.95;
 
