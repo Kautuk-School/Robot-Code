@@ -14,10 +14,10 @@
 #define TRIG_PIN 10
 #define ECHO_PIN 11
 
-int motor1pin1 = 3;
-int motor1pin2 = 5;
-int motor2pin1 = 6;
-int motor2pin2 = 9;
+#define MOTOR_PIN1 3
+#define MOTOR_PIN2 5
+#define MOTOR_PIN3 6
+#define MOTOR_PIN4 9
 
 unsigned long irSensorMillis = 0;
 unsigned long colorSensorMillis = 0;
@@ -34,10 +34,10 @@ void setup() {
   pinMode(TRIG_PIN, OUTPUT);
   pinMode(ECHO_PIN, INPUT);
 
-  pinMode(motor1pin1, OUTPUT);
-  pinMode(motor1pin2, OUTPUT);
-  pinMode(motor2pin1, OUTPUT);
-  pinMode(motor2pin2, OUTPUT);
+  pinMode(MOTOR_PIN1, OUTPUT);
+  pinMode(MOTOR_PIN2, OUTPUT);
+  pinMode(MOTOR_PIN3, OUTPUT);
+  pinMode(MOTOR_PIN4, OUTPUT);
 }
 
 // the loop function runs over and over again forever
