@@ -58,15 +58,7 @@ void loop() {
     ultrasonicSensorMillis = currentMillis;
     readUltrasonic();
   }
-
-  
-    readMotorDriver(255, 255);
-    delay(1000);
-    readMotorDriver(0, 0);
-    delay(100);
-    readMotorDriver(255, -255);
-    delay(500);
-    readMotorDriver(0, 0);
-    delay(100);
-  
+    if (currentMillis - motorDriverMillis >= 250) {
+    motorDriverMillis = currentMillis;
+    readMotorDriver();
 }
