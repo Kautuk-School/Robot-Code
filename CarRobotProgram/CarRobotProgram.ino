@@ -74,12 +74,12 @@ void loop() {
   }
 
   // Perform motor actions
-  readMotorDriver(255, 255); // Move forward
+  readMotorDriver(255, 255);  // Move forward
   delay(1000);
-  readMotorDriver(0, 0);     // Stop
+  readMotorDriver(0, 0);  // Stop
   delay(100);
-  readMotorDriver(255, -255); // Rotate
+  readMotorDriver(255, -255);  // Rotate
   delay(500);
-  readMotorDriver(0, 0);     // Stop
+  readMotorDriver(0, 0);  // Stop
   delay(100);
 }
