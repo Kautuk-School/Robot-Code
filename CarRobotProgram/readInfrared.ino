@@ -1,9 +1,12 @@
+// Function to read values from infrared sensors
 void readInfrared() {
+  // Read values from each infrared sensor
   int IRvalue1 = digitalRead(IR_1);
   int IRvalue2 = digitalRead(IR_2);
   int IRvalue3 = digitalRead(IR_3);
   int IRvalue4 = digitalRead(IR_4);
 
+  // Print the values of each infrared sensor
   Serial.print("IR_1: ");
   Serial.print(IRvalue1);
   Serial.print(", IR_2: ");
