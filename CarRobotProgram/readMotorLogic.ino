@@ -1,4 +1,4 @@
-void motorLogic() {
+void readMotorLogic() {
   int IRvalues;
   IRvalues = readInfrared();
 
