@@ -1,5 +1,5 @@
 // Function to control the motor driver with specified speeds for two motors
-void readMotorDriver(int speed1, int speed2) {
+void motorControl(int speed1, int speed2) {
   // Multipliers for adjusting motor speeds
   float motor1Multiplier = 1.0;
   float motor2Multiplier = 0.95;
@@ -15,6 +15,6 @@ void readMotorDriver(int speed1, int speed2) {
   // Control motors based on adjusted speeds
   analogWrite(MOTOR_PIN1, adjustedSpeed1 > 0 ? adjustedSpeed1 : 0);   // Motor 1 forward
   analogWrite(MOTOR_PIN2, adjustedSpeed1 < 0 ? -adjustedSpeed1 : 0);  // Motor 1 backward
-  analogWrite(MOTOR_PIN3, adjustedSpeed1 > 0 ? adjustedSpeed2 : 0);   // Motor 2 forward
-  analogWrite(MOTOR_PIN4, adjustedSpeed1 < 0 ? -adjustedSpeed2 : 0);  // Motor 2 backward
+  analogWrite(MOTOR_PIN3, adjustedSpeed2 > 0 ? adjustedSpeed2 : 0);   // Motor 2 forward
+  analogWrite(MOTOR_PIN4, adjustedSpeed2 < 0 ? -adjustedSpeed2 : 0);  // Motor 2 backward
 }
