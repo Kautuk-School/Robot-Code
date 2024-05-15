@@ -1,6 +1,7 @@
 void readMotorLogic() {
-  int IRvalues;
+  int* IRvalues;
   IRvalues = readInfrared();
+  motorControl(0,0);
 
   if (IRvalues[1] == 1 && IRvalues[2] == 1) {
     motorControl(200, 200);
