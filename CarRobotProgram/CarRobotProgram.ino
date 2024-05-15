@@ -19,10 +19,12 @@
 #define MOTOR_PIN3 6
 #define MOTOR_PIN4 9
 
+String currentState = "null";
+
 unsigned long irSensorMillis = 0;
 unsigned long colorSensorMillis = 0;
 unsigned long ultrasonicSensorMillis = 0;
-unsigned long motorDriverMillis = 0;
+unsigned long motorlogicMillis = 0;
 
 void setup() {
   Serial.begin(9600);
@@ -58,8 +60,6 @@ void loop() {
     ultrasonicSensorMillis = currentMillis;
     readUltrasonic();
   }
-  if (currentMillis - motorlogicMillis >= 250) {
-    motorlogicMillis = currentMillis;
-    readMotorLogic();
-  }
+
+  readMotorLogic();
 }
