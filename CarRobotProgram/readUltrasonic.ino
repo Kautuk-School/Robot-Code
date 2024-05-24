@@ -23,5 +23,6 @@ void readUltrasonic() {
   Serial.println(distance);
 
   // Wait for a short period before taking the next reading
-  delay(1000);
+
+  currentDistance = distance;
 }
