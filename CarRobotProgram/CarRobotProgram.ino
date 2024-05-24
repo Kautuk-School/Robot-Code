@@ -19,15 +19,26 @@
 #define MOTOR_PIN3 6
 #define MOTOR_PIN4 9
 
-String currentState = "null";
+String currentState = "Null";
+String oldCurrentState = "Null";
 
 unsigned long irSensorMillis = 0;
 unsigned long colorSensorMillis = 0;
 unsigned long ultrasonicSensorMillis = 0;
 unsigned long motorlogicMillis = 0;
 
+String turnDirection = "";
+String lastTurnDirection = "";
+bool isTurning = false;
+bool wallDetected = false;
+
+int currentDistance = 0;
+
+unsigned long currentMillis;
+
 void setup() {
   Serial.begin(9600);
+
   pinMode(IR_1, INPUT);
   pinMode(IR_2, INPUT);
   pinMode(IR_3, INPUT);
@@ -44,22 +55,17 @@ void setup() {
 
 // the loop function runs over and over again forever
 void loop() {
-  unsigned long currentMillis = millis();
+  currentMillis = millis(); 
 
-  if (currentMillis - irSensorMillis >= 500) {
-    irSensorMillis = currentMillis;
-    readInfrared();
-  }
+  // if (currentMillis - colorSensorMillis >= 20) {
+  //   colorSensorMillis = currentMillis;
+  //   readColorSensor();
+  // }
 
-  if (currentMillis - colorSensorMillis >= 250) {
-    colorSensorMillis = currentMillis;
-    readColorSensor();
-  }
-
-  if (currentMillis - ultrasonicSensorMillis >= 250) {
+  if (currentMillis - ultrasonicSensorMillis >= 20) {
     ultrasonicSensorMillis = currentMillis;
     readUltrasonic();
   }
 
-  readMotorLogic();
+  robotLogic();
 }
