@@ -1,8 +1,8 @@
 // Function to control the motor driver with specified speeds for two motors
 void motorControl(int speed1, int speed2) {
   // Multipliers for adjusting motor speeds
-  float motor1Multiplier = 1.0;
-  float motor2Multiplier = 0.95;
+  float motor1Multiplier = 0.9; //left wheel
+  float motor2Multiplier = 1.0; //right wheel
 
   // Adjust speeds based on multipliers
   int adjustedSpeed1 = speed1 * motor1Multiplier;
