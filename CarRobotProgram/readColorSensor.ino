@@ -31,21 +31,47 @@ void readColorSensor() {
   Serial.print(" W(clear)= ");
   Serial.println(avgWhite);
 
-  if (avgRed > 20 && avgGreen > 15) {
-    WiFiDrv::analogWrite(27, 0);
-    WiFiDrv::analogWrite(25, 255);
-    WiFiDrv::analogWrite(26, 255);
-  } else if (avgRed > 15) {
-    WiFiDrv::analogWrite(26, 255);
-    WiFiDrv::analogWrite(25, 0);
-    WiFiDrv::analogWrite(27, 0);
-  } else if (avgGreen > 15) {
-    WiFiDrv::analogWrite(25, 255);
-    WiFiDrv::analogWrite(26, 0);
-    WiFiDrv::analogWrite(27, 0);
-  } else if (avgBlue > 15) {
-    WiFiDrv::analogWrite(27, 255);
-    WiFiDrv::analogWrite(26, 0);
-    WiFiDrv::analogWrite(25, 0);
-  }
+// Define variables to store previous LED state
+int prevRed = 0;
+int prevGreen = 0;
+int prevBlue = 0;
+
+if (avgRed > 20 && avgGreen > 15) {
+    // Update only if the color is different from the previous one
+    if (prevRed != 0 || prevGreen != 255 || prevBlue != 255) {
+        prevRed = 0;
+        prevGreen = 255;
+        prevBlue = 255;
+        WiFiDrv::analogWrite(27, prevRed);
+        WiFiDrv::analogWrite(25, prevGreen);
+        WiFiDrv::analogWrite(26, prevBlue);
+    }
+} else if (avgRed > 15) {
+    if (prevRed != 255 || prevGreen != 0 || prevBlue != 0) {
+        prevRed = 255;
+        prevGreen = 0;
+        prevBlue = 0;
+        WiFiDrv::analogWrite(26, prevRed);
+        WiFiDrv::analogWrite(25, prevGreen);
+        WiFiDrv::analogWrite(27, prevBlue);
+    }
+} else if (avgGreen > 15) {
+    if (prevRed != 0 || prevGreen != 255 || prevBlue != 0) {
+        prevRed = 0;
+        prevGreen = 255;
+        prevBlue = 0;
+        WiFiDrv::analogWrite(25, prevGreen);
+        WiFiDrv::analogWrite(26, prevBlue);
+        WiFiDrv::analogWrite(27, prevRed);
+    }
+} else if (avgBlue > 15) {
+    if (prevRed != 0 || prevGreen != 0 || prevBlue != 255) {
+        prevRed = 0;
+        prevGreen = 0;
+        prevBlue = 255;
+        WiFiDrv::analogWrite(27, prevBlue);
+        WiFiDrv::analogWrite(26, prevGreen);
+        WiFiDrv::analogWrite(25, prevRed);
+    }
+}
 }
