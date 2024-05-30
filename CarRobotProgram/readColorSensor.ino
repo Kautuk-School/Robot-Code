@@ -30,4 +30,22 @@ void readColorSensor() {
   Serial.print(avgBlue);
   Serial.print(" W(clear)= ");
   Serial.println(avgWhite);
+
+  if (avgRed > 20 && avgGreen > 15) {
+    WiFiDrv::analogWrite(27, 0);
+    WiFiDrv::analogWrite(25, 255);
+    WiFiDrv::analogWrite(26, 255);
+  } else if (avgRed > 15) {
+    WiFiDrv::analogWrite(26, 255);
+    WiFiDrv::analogWrite(25, 0);
+    WiFiDrv::analogWrite(27, 0);
+  } else if (avgGreen > 15) {
+    WiFiDrv::analogWrite(25, 255);
+    WiFiDrv::analogWrite(26, 0);
+    WiFiDrv::analogWrite(27, 0);
+  } else if (avgBlue > 15) {
+    WiFiDrv::analogWrite(27, 255);
+    WiFiDrv::analogWrite(26, 0);
+    WiFiDrv::analogWrite(25, 0);
+  }
 }
