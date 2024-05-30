@@ -1,4 +1,5 @@
 #include <tcs3200.h>
+#include <WiFiNINA.h>
 
 #define IR_1 4
 #define IR_2 7
@@ -18,6 +19,10 @@
 #define MOTOR_PIN2 5
 #define MOTOR_PIN3 6
 #define MOTOR_PIN4 9
+
+#define LED_R 25
+#define LED_G 26
+#define LED_B 27
 
 String currentState = "Null";
 String oldCurrentState = "Null";
@@ -51,6 +56,12 @@ void setup() {
   pinMode(MOTOR_PIN2, OUTPUT);
   pinMode(MOTOR_PIN3, OUTPUT);
   pinMode(MOTOR_PIN4, OUTPUT);
+
+  WiFiDrv::pinMode(LED_R, OUTPUT);
+  WiFiDrv::pinMode(LED_G, OUTPUT);
+  WiFiDrv::pinMode(LED_B, OUTPUT);
+
+  
 }
 
 // the loop function runs over and over again forever
