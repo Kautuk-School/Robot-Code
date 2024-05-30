@@ -1,9 +1,12 @@
 bool initialForwardMotion = false;
-const unsigned long initialMotionDuration = 350;
+const unsigned long initialMotionDuration = 275;
 
 unsigned long turnStartTime = 0;
 const unsigned long initialTurnDuration = 600;
 int turnSpeed = 150;
+
+int leftTurnModifier = 40;
+int rightTurnModifier = 25;
 
 const unsigned long sensorCheckThreshold = 50;
 
@@ -21,8 +24,8 @@ void turnLogic() {
   IRvalues = readInfrared();  // This will point to the array of sensor values
   // Print the read values to the serial monitor
   // Check to see if a wall has been detected
-  
-  if (currentDistance < 10 && wallDetected == false) {
+
+  if (currentDistance < 8 && wallDetected == false) {
     isTurning = true;
     wallDetected = true;
     turnStartTime = currentMillis;
@@ -79,23 +82,24 @@ void motorLogic() {
   int* IRvalues;
   IRvalues = readInfrared();
   // Apply robot logic based on sensor readings and turning flags
+
   if (!isTurning && !wallDetected) {
     if (IRvalues[1] == 1 && IRvalues[2] == 1) {
-      motorControl(200, 200);
+      motorControl(220, 220);
       currentState = "Forward";
     } else if (IRvalues[1] == 0 && IRvalues[2] == 1) {
-      motorControl(150, 200);
+      motorControl(160, 220);
       currentState = "Left";
     } else if (IRvalues[1] == 1 && IRvalues[2] == 0) {
-      motorControl(200, 150);
+      motorControl(220, 160);
       currentState = "Right";
     } else if (IRvalues[0] == 1 && IRvalues[1] == 1 && IRvalues[2] == 1 && IRvalues[3] == 1) {
       if (currentState == "Forward") {
-        motorControl(200, 200);
+        motorControl(220, 220);
       } else if (currentState == "Left") {
-        motorControl(150, 200);
+        motorControl(160, 220);
       } else if (currentState == "Right") {
-        motorControl(200, 150);
+        motorControl(220, 160);
       }
     }
   } else if (isTurning && !wallDetected) {
@@ -119,26 +123,27 @@ void motorLogic() {
           motorControl(0, 0);  // Adjust to move forward or stop
           currentState = "Turning Left - Next Line Detected";
           motorControl(turnSpeed, -turnSpeed);  // Counterbalance
-          delay(50);
+          delay(100);
           motorControl(0, 0);
           delay(50);
           currentState = "Forward";
         } else {
-          motorControl(-turnSpeed, turnSpeed);  // Continue turning left
+          motorControl(-turnSpeed - leftTurnModifier, turnSpeed - rightTurnModifier);  // Continue turning left
           currentState = "Turning Left - No Line Yet Detected";
         }
       } else if (turnDirection == "right") {
         if (currentMillis - turnStartTime >= initialTurnDuration && IRvalues[1] == 1) {
           Serial.println("Detected Center IR Sensor");
           isTurning = false;  // Stop turning if IR3 detects the line again
+          motorControl(0, 0);
           currentState = "Turning Right - Next Line Detected";
           motorControl(-turnSpeed, turnSpeed);  // Counterbalance
-          delay(50);
+          delay(100);
           motorControl(0, 0);
           delay(50);
           currentState = "Forward";
         } else {
-          motorControl(turnSpeed, -turnSpeed);  // Continue turning right
+          motorControl(turnSpeed + leftTurnModifier, -turnSpeed + rightTurnModifier);  // Continue turning right
           currentState = "Turning Right - No Line Yet Detected";
         }
       }
@@ -161,10 +166,11 @@ void motorLogic() {
         motorControl(0, 0);
         delay(50);
 
+
         wallDetected = false;
         currentState = "Forward";
       } else {
-        motorControl(-turnSpeed, turnSpeed);  // Continue turning left
+        motorControl(-turnSpeed - leftTurnModifier, turnSpeed - rightTurnModifier);  // Continue turning left
         currentState = "Turning Left - No Line Yet Detected";
       }
     }
