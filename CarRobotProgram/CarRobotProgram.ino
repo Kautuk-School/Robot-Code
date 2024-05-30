@@ -32,12 +32,12 @@ String lastTurnDirection = "";
 bool isTurning = false;
 bool wallDetected = false;
 
-int currentDistance = 0;
+int currentDistance = 1000;
 
 unsigned long currentMillis;
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(250000);
 
   pinMode(IR_1, INPUT);
   pinMode(IR_2, INPUT);
@@ -55,12 +55,13 @@ void setup() {
 
 // the loop function runs over and over again forever
 void loop() {
-  currentMillis = millis(); 
-
-  // if (currentMillis - colorSensorMillis >= 20) {
-  //   colorSensorMillis = currentMillis;
-  //   readColorSensor();
-  // }
+  currentMillis = millis();
+  Serial.println(currentMillis);
+  
+  if (currentMillis - colorSensorMillis >= 20) {
+    colorSensorMillis = currentMillis;
+    readColorSensor();
+  }
 
   if (currentMillis - ultrasonicSensorMillis >= 20) {
     ultrasonicSensorMillis = currentMillis;
