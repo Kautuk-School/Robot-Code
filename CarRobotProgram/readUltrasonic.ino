@@ -24,5 +24,5 @@ void readUltrasonic() {
 
   // Wait for a short period before taking the next reading
 
-  currentDistance = distance;
+  currentDistance = distance; 
 }
