@@ -76,14 +76,6 @@ void readColorSensor() {
     }
   }
   */
-
-  
-  
-  
-  
-  
-  
-  
   
   if (((29 < avgRed) && (avgRed < 37)) && ((46 < avgGreen) && (avgGreen < 54)) && ((34 < avgBlue) && (avgBlue < 42))) //Green
   {
@@ -109,7 +101,7 @@ void readColorSensor() {
       Serial.println("Yellow RN");
     }
   }
-  else if (11 < avgRed < 19 && 19 < avgGreen < 27 && 46 < avgBlue < 54) //blue
+  else if (((11 < avgRed) && (avgRed < 19)) && ((19 < avgGreen) && (avgGreen < 27)) && ((46 < avgBlue) && (avgBlue < 54))) //blue
   {
     if (prevRed != 0 || prevGreen != 0 || prevBlue != 255) {
       prevRed = 0;
@@ -120,7 +112,7 @@ void readColorSensor() {
       WiFiDrv::analogWrite(25, prevRed);
     }
   } 
-  else if (56 < avgRed < 64 && 11 < avgGreen < 19 && 18 < avgBlue < 26) //red
+  else if (((56 < avgRed) && (avgRed < 64)) && ((11 < avgGreen) && (avgGreen < 19)) && ((18 < avgBlue) && (avgBlue < 26))) //red
   {
     if (prevRed != 255 || prevGreen != 0 || prevBlue != 0) {
       prevRed = 255;
