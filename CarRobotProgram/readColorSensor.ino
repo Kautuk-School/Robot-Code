@@ -97,7 +97,7 @@ void readColorSensor() {
       Serial.println("GREEN RN");
     }
   }
-  else if (79 < avgRed < 87 && 53 < avgGreen < 61 && 29 < avgBlue < 37) //yellow
+  else if (((79 < avgRed) && (avgRed < 87)) && ((53 < avgGreen) && (avgGreen < 61)) && ((29 < avgBlue) && (avgBlue< 37))) //yellow
   {
     if (prevRed != 0 || prevGreen != 255 || prevBlue != 255) {
       prevRed = 0;
