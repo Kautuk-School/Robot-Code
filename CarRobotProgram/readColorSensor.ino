@@ -77,8 +77,10 @@ void readColorSensor() {
   }
   */
   
+  // Check the average color values and set the LED color accordingly
   if (((29 < avgRed) && (avgRed < 37)) && ((46 < avgGreen) && (avgGreen < 54)) && ((34 < avgBlue) && (avgBlue < 42))) //Green
   {
+    // Update LED color if it's different from the previous one
     if (prevRed != 0 || prevGreen != 255 || prevBlue != 0) {
       prevRed = 0;
       prevGreen = 255;
@@ -89,6 +91,7 @@ void readColorSensor() {
       Serial.println("GREEN RN");
     }
   }
+  // Check for yellow color
   else if (((79 < avgRed) && (avgRed < 87)) && ((53 < avgGreen) && (avgGreen < 61)) && ((29 < avgBlue) && (avgBlue< 37))) //yellow
   {
     if (prevRed != 0 || prevGreen != 255 || prevBlue != 255) {
@@ -101,6 +104,7 @@ void readColorSensor() {
       Serial.println("Yellow RN");
     }
   }
+  // Check for blue color
   else if (((11 < avgRed) && (avgRed < 19)) && ((19 < avgGreen) && (avgGreen < 27)) && ((46 < avgBlue) && (avgBlue < 54))) //blue
   {
     if (prevRed != 0 || prevGreen != 0 || prevBlue != 255) {
@@ -112,6 +116,7 @@ void readColorSensor() {
       WiFiDrv::analogWrite(25, prevRed);
     }
   } 
+  // Check for red color
   else if (((56 < avgRed) && (avgRed < 64)) && ((11 < avgGreen) && (avgGreen < 19)) && ((18 < avgBlue) && (avgBlue < 26))) //red
   {
     if (prevRed != 255 || prevGreen != 0 || prevBlue != 0) {
